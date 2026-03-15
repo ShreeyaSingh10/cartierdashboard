@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cartier — Event Intelligence Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="header">
+    <div class="header-left">
+      <div class="eyebrow">Cartier Maison · Private Event Intelligence</div>
+      <h1>La Nuit <em>des Pierres Précieuses</em></h1>
+    </div>
+    <div class="header-right">
+      <div class="date" id="event-date"></div>
+      <div class="status"><span class="status-dot"></span> Live Dashboard</div>
+    </div>
+  </div>
+  <div class="nav">
+    <div class="nav-tab active" onclick="setTab(0)">Overview</div>
+    <div class="nav-tab" onclick="setTab(1)">Guests</div>
+    <div class="nav-tab" onclick="setTab(2)">Engagement</div>
+    <div class="nav-tab" onclick="setTab(3)">Sales</div>
+    <div class="nav-tab" onclick="setTab(4)">ROI</div>
+    <div class="nav-tab" onclick="setTab(5)">Relationships</div>
+    <div class="nav-tab" onclick="setTab(6)">Jewellery</div>
+    <div class="nav-tab" onclick="setTab(7)">Follow-Up</div>
+    <div class="nav-tab" onclick="setTab(8)">Insights</div>
+  </div>
+  <div class="section active" id="s0">
+    <div class="section-title">Event Overview</div>
+    <div class="section-sub">Executive Summary · High Jewellery Evening</div>
+    <div class="kpi-grid" id="overview-kpis"></div>
+    <div class="funnel-container">
+      <div class="funnel-title">Invite → RSVP → Attendance Conversion</div>
+      <div id="overview-funnel"></div>
+    </div>
+    <div class="chart-row">
+      <div class="chart-box"><div class="chart-box-title">Guest Composition</div><canvas id="c-comp" height="180"></canvas><div class="pie-legend" id="comp-legend"></div></div>
+      <div class="chart-box"><div class="chart-box-title">Wealth Segment</div><canvas id="c-wealth" height="180"></canvas><div class="pie-legend" id="wealth-legend"></div></div>
+    </div>
+  </div>
+  <div class="section" id="s1">
+    <div class="section-title">Client & Guest Intelligence</div>
+    <div class="section-sub">Segmentation · Persona · Geography</div>
+    <div class="kpi-grid" id="guest-kpis"></div>
+    <div class="chart-row">
+      <div class="chart-box"><div class="chart-box-title">Persona Distribution</div><canvas id="c-persona" height="200"></canvas><div class="pie-legend" id="persona-legend"></div></div>
+      <div class="chart-box"><div class="chart-box-title">Industry Background</div><canvas id="c-industry" height="200"></canvas></div>
+    </div>
+    <div class="chart-box-full"><div class="chart-box-title">Top Relationship Managers</div>
+      <table class="data-table"><thead><tr><th>#</th><th>Relationship Manager</th><th>Guests Referred</th><th>UHNW</th><th>Converted</th></tr></thead><tbody id="rm-table"></tbody></table>
+    </div>
+  </div>
+  <div class="section" id="s2">
+    <div class="section-title">Event Engagement</div>
+    <div class="section-sub">Interactions · Appointments · Salon Dwell</div>
+    <div class="kpi-grid" id="engagement-kpis"></div>
+    <div class="chart-box-full"><div class="chart-box-title">Jewellery Interest Ranking</div><div class="rank-list" id="jewelry-ranks"></div></div>
+    <div class="funnel-container"><div class="funnel-title">Engagement Funnel</div><div id="engagement-funnel"></div></div>
+  </div>
+  <div class="section" id="s3">
+    <div class="section-title">Sales & Conversion</div>
+    <div class="section-sub">Immediate · Pipeline · Revenue</div>
+    <div class="kpi-grid" id="sales-kpis"></div>
+    <div class="chart-row">
+      <div class="chart-box"><div class="chart-box-title">Revenue Funnel</div><canvas id="c-rev" height="200"></canvas></div>
+      <div class="chart-box"><div class="chart-box-title">Sales by Persona</div><canvas id="c-persona-sales" height="200"></canvas></div>
+    </div>
+    <div class="chart-box-full"><div class="chart-box-title">Top Performing Pieces</div>
+      <table class="data-table"><thead><tr><th>#</th><th>Piece</th><th>Category</th><th>Price</th><th>Status</th></tr></thead><tbody id="sales-table"></tbody></table>
+    </div>
+  </div>
+  <div class="section" id="s4">
+    <div class="section-title">Financial Performance</div>
+    <div class="section-sub">ROI · Cost Structure · Revenue Attribution</div>
+    <div class="chart-row">
+      <div class="chart-box" style="display:flex;flex-direction:column;align-items:center;justify-content:center;">
+        <div class="chart-box-title" style="text-align:center;width:100%">Event ROI</div>
+        <div class="gauge-wrap"><canvas id="c-gauge" width="200" height="110"></canvas><div class="gauge-value" id="roi-value"></div><div class="gauge-label">Return on Investment</div></div>
+      </div>
+      <div class="chart-box"><div class="chart-box-title">Revenue vs Cost</div><canvas id="c-roi-bar" height="200"></canvas></div>
+    </div>
+    <div class="kpi-grid" id="roi-kpis"></div>
+  </div>
+  <div class="section" id="s5">
+    <div class="section-title">Relationship Metrics</div>
+    <div class="section-sub">Depth · New Leads · Family Office</div>
+    <div class="kpi-grid" id="rel-kpis"></div>
+    <div class="chart-row">
+      <div class="chart-box"><div class="chart-box-title">Relationship Growth Index</div><canvas id="c-rel" height="200"></canvas></div>
+      <div class="chart-box"><div class="chart-box-title">Client Engagement Scores</div><div class="rank-list" id="rel-scores"></div></div>
+    </div>
+  </div>
+  <div class="section" id="s6">
+    <div class="section-title">Jewellery Intelligence</div>
+    <div class="section-sub">Demand Signals · Gemstone · Category</div>
+    <div class="chart-row">
+      <div class="chart-box"><div class="chart-box-title">Category Interest</div><canvas id="c-cat" height="200"></canvas></div>
+      <div class="chart-box"><div class="chart-box-title">Gemstone Preference</div><canvas id="c-gem" height="200"></canvas></div>
+    </div>
+    <div class="chart-row">
+      <div class="chart-box"><div class="chart-box-title">Price Band Demand</div><canvas id="c-price" height="200"></canvas></div>
+      <div class="chart-box"><div class="chart-box-title">Most Viewed Pieces</div><div class="rank-list" id="viewed-pieces"></div></div>
+    </div>
+  </div>
+  <div class="section" id="s7">
+    <div class="section-title">Post-Event Follow-Up</div>
+    <div class="section-sub">Pipeline Management · Actions</div>
+    <div class="kpi-grid" id="followup-kpis"></div>
+    <div class="chart-box-full"><div class="chart-box-title">Follow-Up Action Tracker</div>
+      <table class="data-table"><thead><tr><th>Client</th><th>Action</th><th>Assigned RM</th><th>Date</th><th>Status</th></tr></thead><tbody id="followup-table"></tbody></table>
+    </div>
+  </div>
+  <div class="section" id="s8">
+    <div class="section-title">Strategic Insights</div>
+    <div class="section-sub">Synthesis · Performance Signals</div>
+    <div id="insights-list"></div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+  <script src="data.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
